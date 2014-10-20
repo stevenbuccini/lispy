@@ -1,4 +1,4 @@
-from lib.aritmetic import OPERATORS
+from lib.arithmetic import OPERATORS
 
 def scheme_eval(tokens):
     """Handles scheme tokens"""
@@ -21,6 +21,12 @@ def scheme_eval(tokens):
         func = OPERATORS[token]
         return func(scheme_eval(tokens[0]),
                     scheme_eval(tokens[1]))
+
+    if token == "eq?":
+        if len(tokens) != 2:
+            raise Exception("eq? requires only 2 arguments.")
+        # TODO -- Change this to #t and #f, which is more Lisp-y
+        return scheme_eval(tokens[0]) == scheme_eval(tokens[1])
 
     # Placeholder for inputs like '-> 2' and '-> (2)'
     else:
