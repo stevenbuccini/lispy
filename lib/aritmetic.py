@@ -1,7 +1,7 @@
 from operator import *
 
 # This file maps primatives to functions.
-PRIMATIVES = {
+OPERATORS = {
     '+': add,
     '-': sub,
     '*': mul,
