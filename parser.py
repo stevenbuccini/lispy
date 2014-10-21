@@ -52,6 +52,11 @@ def tokenize(substring):
     while index < len(substring):
         char = substring[index]
 
+        # If substring begins with a quote, return the rest of the
+        # substring as this is a literal form.
+        if char == "'":
+            return substring
+
         # Whitespace is the delimiter for a token. Throw away the
         # the whitespace character, add the current token to the list of
         # tokens, and reset the current_token.
