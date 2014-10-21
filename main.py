@@ -7,6 +7,7 @@ def main():
     while True:
         response = input('> ')
         tokens = parse(response)
+        print(tokens)
         result = scheme_eval(tokens)
         print('=> ' + str(result))
 

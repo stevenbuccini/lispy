@@ -34,6 +34,19 @@ def scheme_eval(tokens):
         # TODO -- Change this to #t and #f, which is more Lisp-y
         return scheme_eval(tokens[0]) == scheme_eval(tokens[1])
 
+    if token == 'if':
+        if len(tokens) != 3:
+            raise Exception("if requires truth test, true condition \
+                            and false condition")
+        # Must equal True exactly to avoid Python treating numbers and
+        # Strings as true
+        if scheme_eval(tokens[0]) == True:
+            return scheme_eval(tokens[1])
+        elif scheme_eval(tokens[0]) == False:
+            return scheme_eval(tokens[1])
+        else:
+            raise Exception("Expression does not return a boolean.")
+
 
     # Placeholder for inputs like '-> 2' and '-> (2)'
     else:

@@ -54,8 +54,10 @@ def tokenize(substring):
 
         # If substring begins with a quote, return the rest of the
         # substring as this is a literal form.
-        if char == "'":
-            return substring
+
+        # TODO: handle two string literals in same expression.
+        # if char == "'":
+        #     return substring
 
         # Whitespace is the delimiter for a token. Throw away the
         # the whitespace character, add the current token to the list of

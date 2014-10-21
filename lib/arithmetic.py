@@ -6,4 +6,8 @@ OPERATORS = {
     '-': sub,
     '*': mul,
     '/': truediv,
+    '<': lt,
+    '<=': le,
+    '>': gt,
+    '>=': ge,
 }
