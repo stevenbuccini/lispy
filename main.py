@@ -1,7 +1,7 @@
-from evaluator import scheme_eval
 from lib.helpers import clear_screen
 from lispy.environment import Environment
-from parser import parse
+from lispy.evaluator import scheme_eval
+from lispy.parser import parse
 
 
 def main():

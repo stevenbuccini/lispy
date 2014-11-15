@@ -6,7 +6,7 @@ def scheme_eval(tokens, env=None):
     """Handles scheme tokens"""
 
     # Dealing with a standalone item.
-    if type(tokens) is not list:
+    if type(tokens) is not list or len(tokens) == 1:
         # If we're dealing a lone primative, immediately return it.
         # Numbers are our only primatives for now
         if type(tokens) in [float, int]:
@@ -22,13 +22,18 @@ def scheme_eval(tokens, env=None):
         if type(tokens) is str:
             return env.get(tokens)
 
+        # This case occurs when we just enter a variable in the prompt:
+        # > a
+        if len(tokens) == 1:
+            return env.get(tokens[0])
+
     # We're dealing with a list, which means a new reference frame.,
     token = tokens.pop(0)
 
     if token in OPERATORS:
         if len(tokens) != 2:
-            raise Exception("Mathematical operators require only 2 \
-                            operands")
+            raise Exception("Mathematical operators require only 2 "
+                            "operands")
         func = OPERATORS[token]
         return func(scheme_eval(tokens[0], env),
                     scheme_eval(tokens[1], env))
@@ -41,8 +46,8 @@ def scheme_eval(tokens, env=None):
 
     elif token == 'if':
         if len(tokens) != 3:
-            raise Exception("if requires truth test, true condition \
-                            and false condition")
+            raise Exception("if requires truth test, true condition"
+                            " and false condition")
         # Must equal True exactly to avoid Python treating numbers and
         # Strings as true
         if scheme_eval(tokens[0], env) == True:
@@ -53,12 +58,10 @@ def scheme_eval(tokens, env=None):
             raise Exception("Expression does not return a boolean.")
 
     elif token == 'var':
-        print('adding tokens')
         var_name = tokens.pop(0)
         # First char in name must be a number to differentiate it from
         # normal numbers.
         assert(var_name[0] in ascii_letters)
-        print("tokens to resolve to value", tokens[0])
         value = scheme_eval(tokens[0], env)
         env.add(var_name, value)
 
